@@ -4,8 +4,6 @@ services:
         build: ./
         volumes:
             - ./src:/usr/src/app
-        environment: 
-            - CK=
-            - CS=
-            - AT=
-            - AS=
+        env_file: 
+            - ./keys.env
+            
