@@ -42,6 +42,9 @@ class Listener(tweepy.StreamListener):
         api.create_friendship(evt.source["screen_name"])
 
     def on_error(self, status_code):
+        if str(status_code) == "420":
+            print("420! rate limit!")
+            return False
         print('Got an error with status code: ' + str(status_code))
         return True
 
