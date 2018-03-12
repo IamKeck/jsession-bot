@@ -34,7 +34,12 @@ class Listener(tweepy.StreamListener):
             api.update_status(status=tweet, in_reply_to_status_id=status.id)
         return True
     def on_event(self, evt):
-        pass
+        if evt.event != "follow":
+            return True
+        if evt.target["screen_name"] != "jsession_bot":
+            return True
+        print("following {}".format(evt.source["screen_name"]))
+        api.create_friendship(evt.source["screen_name"])
 
     def on_error(self, status_code):
         print('Got an error with status code: ' + str(status_code))
