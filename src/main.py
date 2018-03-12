@@ -8,16 +8,12 @@ import json
 from functools import reduce
 import random
 
-print("head")
 
 # Twitterオブジェクトの生成
 auth = tweepy.OAuthHandler(environ["CK"], environ["CS"])
-print("auth")
 auth.set_access_token(environ["AT"], environ["AS"])
-print("set access token")
 
 api = tweepy.API(auth)
-print("api")
 
 class Listener(tweepy.StreamListener):
     def set_song_list(self, song_list):
@@ -52,17 +48,14 @@ class Listener(tweepy.StreamListener):
         print('Timeout...')
         return True
 
-print("before open")
 with open("./songs.json", "r") as songs:
     song_data = json.load(songs)
 
-print("before reduce")
 song_list = reduce(lambda acc, d: acc + [d["name"]] * d["rate"], song_data, [])
-print("got song list")
 
-print("before start")
 listener = Listener()
 listener.set_song_list(song_list)
 stream = tweepy.Stream(auth, listener)
+print("before stream")
 stream.userstream(replies="all")
 
