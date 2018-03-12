@@ -1,0 +1,11 @@
+version: "2"
+services:
+    main:
+        build: ./
+        volumes:
+            - ./src:/usr/src/app
+        environment: 
+            - CK=
+            - CS=
+            - AT=
+            - AS=
